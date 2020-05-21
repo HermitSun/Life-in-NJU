@@ -5,7 +5,7 @@
       <v-toolbar-title>Life In NJU</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-icon
-        @click="open('https://github.com/idealclover/Life-in-NJU')"
+        @click="open('https://github.com/HermitSun/Life-in-NJU')"
         class="mx-3"
       >
         mdi-github
@@ -130,11 +130,11 @@
       >
         ©{{ new Date().getFullYear() }}
         <a
-          href="https://idealclover.top"
+          href="https://github.com/HermitSun"
           class="white--text"
           target="_blank"
           rel="noopener noreferrer nofollow"
-          >idealclover</a
+          >HermitSun</a
         >
       </v-col>
       <v-snackbar v-model="snackbar">
@@ -148,12 +148,12 @@
 </template>
 
 <script>
-import axios from "axios";
 import Vue from "vue";
 import Vuex from "vuex";
-import createPersiste from "vue-savedata";
+import createPersist from "vue-savedata";
 import NativeShare from "nativeshare";
 import Clipboard from "clipboard";
+import data from "@/assets/data.json";
 
 const dataUrl = "https://image.idealclover.cn/projects/Life-in-NJU/";
 const imgUrl =
@@ -172,48 +172,47 @@ const store = new Vuex.Store({
       state.engineIndex = num;
     }
   },
-  plugins: [createPersiste()]
+  plugins: [createPersist()]
 });
 
 export default {
   name: "App",
-  mounted() {
-    axios.get("./data.json").then(response => (this.data = response.data));
+  data() {
+    return {
+      data,
+      value: "",
+      dataUrl: dataUrl,
+      imgUrl: imgUrl,
+      snackbar: false,
+      snackText: "",
+      engineIndex: store.state.engineIndex,
+      engineList: [
+        {
+          name: "baidu",
+          url: "https://www.baidu.com/s?wd=",
+          src: dataUrl + "search/baidu-white.png"
+        },
+        {
+          name: "bing",
+          url: "https://cn.bing.com/search?q=",
+          src: dataUrl + "search/bing-white.png"
+        },
+        {
+          name: "google",
+          url: "https://www.google.com/search?q=",
+          src: dataUrl + "search/google-white.png"
+        }
+      ]
+    };
   },
-  data: () => ({
-    data: null,
-    value: "",
-    dataUrl: dataUrl,
-    imgUrl: imgUrl,
-    snackbar: false,
-    snackText: "",
-    engineIndex: store.state.engineIndex,
-    engineList: [
-      {
-        name: "baidu",
-        url: "https://www.baidu.com/s?wd=",
-        src: dataUrl + "search/baidu-white.png"
-      },
-      {
-        name: "bing",
-        url: "https://cn.bing.com/search?q=",
-        src: dataUrl + "search/bing-white.png"
-      },
-      {
-        name: "google",
-        url: "https://www.google.com/search?q=",
-        src: dataUrl + "search/google-white.png"
-      }
-    ]
-  }),
   methods: {
-    open: function(link) {
+    open(link) {
       // window.location.href = link;
       let tab = window.open(link);
       tab.opener = null;
       tab.location = link;
     },
-    share: function() {
+    share() {
       nativeShare.setShareData({
         icon: "https://nju.today/img/icons/android-chrome-192x192.png",
         link: "https://nju.today",
@@ -221,7 +220,6 @@ export default {
         desc: "南哪人的专属导航页！",
         from: "@idealclover"
       });
-
       // 唤起浏览器原生分享组件(如果在微信中不会唤起，此时call方法只会设置文案。类似setShareData)
       try {
         nativeShare.call();
@@ -229,20 +227,20 @@ export default {
         this.showToast("链接已复制，快分享给小伙伴吧！");
       }
     },
-    search: function() {
+    search() {
       let value = this.value;
       this.value = "";
       this.open(this.engineList[this.engineIndex]["url"] + value);
     },
-    changeEngine: function(num) {
+    changeEngine(num) {
       this.engineIndex = num;
       store.commit("changeEngineIndex", num);
     },
-    nextEngine: function() {
+    nextEngine() {
       this.engineIndex = (this.engineIndex + 1) % this.engineList.length;
       store.commit("changeEngineIndex", this.engineIndex);
     },
-    showToast: function(text) {
+    showToast(text) {
       this.snackText = text;
       this.snackbar = true;
     }

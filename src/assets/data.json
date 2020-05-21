@@ -273,6 +273,11 @@
         "title": "友情链接",
         "items": [
             {
+                "name": "HermitSun",
+                "link": "https://github.com/HermitSun",
+                "description": "@HermitSun 是精简版的制作者"
+            },
+            {
                 "name": "idealclover",
                 "link": "https://idealclover.top",
                 "description": "@idealclover 是本项目的发起人"

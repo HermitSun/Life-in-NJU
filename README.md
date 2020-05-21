@@ -1,37 +1,21 @@
-# 南哪指南 Life-in-NJU
+# 南哪指南-Lite Life-in-NJU-Lite
 
-> 🏠 这儿就是咱的家了
+Forked from [Life-in-NJU](https://github.com/idealclover/Life-in-NJU).
 
-南哪人的专属主页
+一个**非常激进的**轻量的导航页。
 
-![](https://github.com/idealclover/Life-in-NJU/raw/master/assets/screenshots/1.png)
+与完整版的区别：
 
-![](https://github.com/idealclover/Life-in-NJU/raw/master/assets/screenshots/2.png)
+1. 体积小：
 
-![](https://github.com/idealclover/Life-in-NJU/raw/master/assets/screenshots/3.png)
+    1. 尽可能减少依赖数量
 
-* 电脑端、移动端适配
-* 可切换百度/谷歌搜索
-* 南大相关资源网站整理
-* PWA 缓存技术，快速加载，可添加至主页
+    2. 压缩代码和图片
 
-## 投稿、建议或意见
+    3. 重构代码
 
-在 [Issue](https://github.com/idealclover/Life-in-NJU/issues) 选择对应的模板并提交。
+2. 不再支持PWA，以取得更好的性能
 
-## 贵校也想整一个？
+与完整版的对比：
 
-Fork，然后改动 [public/data.json](https://github.com/idealclover/Life-in-NJU/blob/master/public/data.json)，即可拥有贵校专属的主页~
-
-## 开发与 debug
-
-```
-yarn install
-yarn serve
-yarn lint
-yarn build
-```
-
-## LICENSE
-
-MIT
+TODO
