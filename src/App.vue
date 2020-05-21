@@ -2,7 +2,7 @@
   <v-app style="background: rgba(0,0,0,0);">
     <div id="web_bg" :style="'background-image: url(' + imgUrl + ');'"></div>
     <v-app-bar app color="rgba(0,0,0,.2)" dark flat fixed>
-      <v-toolbar-title>Life In NJU</v-toolbar-title>
+      <v-toolbar-title>Life In NJU - Lite</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-icon
         @click="open('https://github.com/HermitSun/Life-in-NJU')"
@@ -148,9 +148,6 @@
 </template>
 
 <script>
-import Vue from "vue";
-import Vuex from "vuex";
-import createPersist from "vue-savedata";
 import NativeShare from "nativeshare";
 import Clipboard from "clipboard";
 import data from "@/assets/data.json";
@@ -160,20 +157,7 @@ const imgUrl =
   dataUrl + "background/bg" + Math.floor(Math.random() * 10) + ".jpg";
 
 new Clipboard(".shareLink");
-Vue.use(Vuex);
 let nativeShare = new NativeShare();
-
-const store = new Vuex.Store({
-  state: {
-    engineIndex: 0
-  },
-  mutations: {
-    changeEngineIndex(state, num) {
-      state.engineIndex = num;
-    }
-  },
-  plugins: [createPersist()]
-});
 
 export default {
   name: "App",
@@ -185,7 +169,7 @@ export default {
       imgUrl: imgUrl,
       snackbar: false,
       snackText: "",
-      engineIndex: store.state.engineIndex,
+      engineIndex: localStorage.getItem("engineIndex") || 0,
       engineList: [
         {
           name: "baidu",
@@ -207,7 +191,6 @@ export default {
   },
   methods: {
     open(link) {
-      // window.location.href = link;
       let tab = window.open(link);
       tab.opener = null;
       tab.location = link;
@@ -234,11 +217,11 @@ export default {
     },
     changeEngine(num) {
       this.engineIndex = num;
-      store.commit("changeEngineIndex", num);
+      localStorage.setItem("engineIndex", num);
     },
     nextEngine() {
       this.engineIndex = (this.engineIndex + 1) % this.engineList.length;
-      store.commit("changeEngineIndex", this.engineIndex);
+      localStorage.setItem("engineIndex", this.engineIndex);
     },
     showToast(text) {
       this.snackText = text;
@@ -247,3 +230,5 @@ export default {
   }
 };
 </script>
+
+<style src="./assets/style/main.css"></style>
