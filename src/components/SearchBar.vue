@@ -114,3 +114,5 @@ export default {
   }
 };
 </script>
+
+<style scoped src="@/assets/style/search.css"></style>

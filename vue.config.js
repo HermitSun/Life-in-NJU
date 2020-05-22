@@ -4,9 +4,6 @@ const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
   transpileDependencies: ["vuetify"],
-  chainWebpack: config => {
-    config.resolve.alias.set("~", __dirname);
-  },
   configureWebpack: {
     optimization: {
       minimizer: [

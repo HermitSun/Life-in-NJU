@@ -1,0 +1,53 @@
+.searchOpt {
+    border-radius: 5px !important;
+    width: 76px !important;
+}
+
+.logo-item {
+    width: 210px;
+    height: 70px;
+}
+
+.v-toolbar__title {
+    cursor: default;
+}
+
+.v-responsive__content {
+    cursor: pointer;
+}
+
+.v-input__slot {
+    box-shadow: rgba(0, 0, 0, 0.1) 0 2px 15px;
+}
+
+.v-input__slot:hover {
+    box-shadow: rgba(0, 0, 0, 0.2) 0 2px 15px;
+}
+
+
+.text-center.white--text.col.col-12 {
+    font-size: small;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+}
+
+.text-center.white--text.col.col-12 a {
+    transition: all 0.25s;
+}
+
+.text-center.white--text.col.col-12 a:hover {
+    color: rgb(135, 180, 230) !important;
+}
+
+@supports (-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px)) {
+    .v-input__slot {
+        background-color: rgba(255, 255, 255, 0.5) !important;
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+    }
+
+    .v-input__slot:hover {
+        background-color: rgba(255, 255, 255, 0.7) !important;
+        box-shadow: rgba(0, 0, 0, 0.1) 0 2px 15px;
+    }
+}

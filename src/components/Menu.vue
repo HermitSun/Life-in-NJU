@@ -50,3 +50,5 @@ export default {
   }
 };
 </script>
+
+<style scoped src="@/assets/style/menu.css"></style>

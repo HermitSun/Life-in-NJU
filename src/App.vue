@@ -102,7 +102,7 @@ export default {
           link: "https://nju.today",
           title: "南哪指南 - Lite",
           desc: "南哪人的专属导航页！",
-          from: "@idealclover"
+          from: "@HermitSun @idealclover"
         });
         // 唤起浏览器原生分享组件(如果在微信中不会唤起，此时call方法只会设置文案。类似setShareData)
         try {
@@ -147,4 +147,4 @@ export default {
 };
 </script>
 
-<style src="./assets/style/main.css"></style>
+<style scoped src="./assets/style/main.css"></style>
