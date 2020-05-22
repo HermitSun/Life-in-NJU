@@ -1,8 +1,10 @@
 <template>
   <v-app style="background: rgba(0,0,0,0);">
+    <!--背景图片-->
     <div id="web_bg" :style="'background-image: url(' + imgUrl + ');'"></div>
+    <!--顶部标题栏-->
     <v-app-bar app color="rgba(0,0,0,.2)" dark flat fixed>
-      <v-toolbar-title>Life In NJU - Lite</v-toolbar-title>
+      Life In NJU - Lite
       <v-spacer></v-spacer>
       <v-icon
         @click="open('https://github.com/HermitSun/Life-in-NJU')"
@@ -18,14 +20,22 @@
         mdi-open-in-new
       </v-icon>
     </v-app-bar>
-    <v-content class="mt-12">
-      <v-container>
-        <v-col align="center" justify="center" class="pa-0">
-          <v-img
+    <v-content class="mt-12 pa-0">
+      <v-container class="fill-height" fluid>
+        <v-row
+          justify="center"
+          align="center"
+          class="flex-column flex-nowrap"
+          style="height: 100vh"
+        >
+          <!--切换搜索引擎的图标-->
+          <img
             class="logo-item"
-            :src="engineList[engineIndex]['src']"
+            :src="engineList[engineIndex].src"
             @click="nextEngine"
-          ></v-img>
+            alt="logo"
+          />
+          <!--搜索输入框-->
           <v-text-field
             flat
             solo
@@ -35,13 +45,11 @@
             append-icon="search"
             @click:append="search"
             @keyup.enter="search"
-          ></v-text-field>
-          <v-row
-            class="mb-10"
-            align="center"
-            justify="center"
-            id="searchOptBox"
-          >
+            style="width: 80%; flex-grow: 0;"
+          />
+          <!--切换搜索引擎的按钮-->
+          <v-row class="mt-10 mb-10" style="flex-grow: 0;">
+            <!--TODO: 消除重复代码-->
             <div class="text-center mx-4">
               <v-btn
                 depressed
@@ -79,19 +87,17 @@
               </v-btn>
             </div>
           </v-row>
-        </v-col>
-      </v-container>
-      <v-container>
+        </v-row>
+        <!--其他功能-->
         <v-expansion-panels multiple>
-          <!-- <v-expansion-panels multiple :value="[0, 1, 2, 3]"> -->
           <v-expansion-panel
             v-for="(category, i) in data"
             :key="i"
             class="panels"
           >
-            <v-expansion-panel-header>{{
-              category.title
-            }}</v-expansion-panel-header>
+            <v-expansion-panel-header>
+              {{ category.title }}
+            </v-expansion-panel-header>
             <v-expansion-panel-content>
               <v-row>
                 <v-col
@@ -123,23 +129,10 @@
           </v-expansion-panel>
         </v-expansion-panels>
       </v-container>
-      <v-col
-        class="text-center white--text"
-        style="background-color: rgba(0,0,0,.2);"
-        cols="12"
-      >
-        ©{{ new Date().getFullYear() }}
-        <a
-          href="https://github.com/HermitSun"
-          class="white--text"
-          target="_blank"
-          rel="noopener noreferrer nofollow"
-          >HermitSun</a
-        >
-      </v-col>
-      <v-snackbar v-model="snackbar">
+      <!--分享提示-->
+      <v-snackbar v-model="showSnackbar">
         {{ snackText }}
-        <v-btn color="pink" text @click="snackbar = false">
+        <v-btn color="pink" text @click="showSnackbar = false">
           Close
         </v-btn>
       </v-snackbar>
@@ -167,7 +160,7 @@ export default {
       value: "",
       dataUrl: dataUrl,
       imgUrl: imgUrl,
-      snackbar: false,
+      showSnackbar: false,
       snackText: "",
       engineIndex: localStorage.getItem("engineIndex") || 0,
       engineList: [
@@ -190,11 +183,13 @@ export default {
     };
   },
   methods: {
+    // 打开新页面
     open(link) {
       let tab = window.open(link);
       tab.opener = null;
       tab.location = link;
     },
+    // 分享
     share() {
       nativeShare.setShareData({
         icon: "https://nju.today/img/icons/android-chrome-192x192.png",
@@ -210,22 +205,23 @@ export default {
         this.showToast("链接已复制，快分享给小伙伴吧！");
       }
     },
+    // 搜索
     search() {
       let value = this.value;
       this.value = "";
-      this.open(this.engineList[this.engineIndex]["url"] + value);
+      this.open(this.engineList[this.engineIndex].url + value);
     },
     changeEngine(num) {
       this.engineIndex = num;
-      localStorage.setItem("engineIndex", num);
-    },
-    nextEngine() {
-      this.engineIndex = (this.engineIndex + 1) % this.engineList.length;
       localStorage.setItem("engineIndex", this.engineIndex);
     },
+    nextEngine() {
+      this.changeEngine((this.engineIndex + 1) % this.engineList.length);
+    },
+    // 弹出提示
     showToast(text) {
       this.snackText = text;
-      this.snackbar = true;
+      this.showSnackbar = true;
     }
   }
 };
