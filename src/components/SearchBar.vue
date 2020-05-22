@@ -14,18 +14,11 @@
       class="mt-10"
       label="Search"
       v-model="keyword"
+      append-icon="mdi-magnify"
       @click:append="search"
       @keyup.enter="search"
-      style="width: 80%; flex-grow: 0;"
-    >
-      <template #append>
-        <img
-          src="@/assets/icon/search.svg"
-          alt="search-icon"
-          style="zoom: 125%"
-        />
-      </template>
-    </v-text-field>
+      style="width: 80%; flex-grow: 0"
+    />
     <!--切换搜索引擎的按钮-->
     <v-row class="mt-10 mb-10" style="flex-grow: 0;">
       <!--TODO: 消除重复代码-->
@@ -98,11 +91,15 @@ export default {
     };
   },
   methods: {
+    open(link) {
+      let tab = window.open(link);
+      tab.opener = null;
+      tab.location = link;
+    },
     // 搜索
     search() {
-      let value = this.value;
-      this.value = "";
-      this.open(this.engineList[this.engineIndex].url + value);
+      this.open(this.engineList[this.engineIndex].url + this.keyword);
+      this.keyword = "";
     },
     changeEngine(num) {
       this.engineIndex = num;

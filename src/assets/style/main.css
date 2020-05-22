@@ -83,3 +83,7 @@ header {
 .mdi-chevron-right::before {
     content: "\F0142";
 }
+
+.mdi-magnify::before {
+    content: "\F0349";
+}
