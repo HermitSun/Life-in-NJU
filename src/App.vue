@@ -147,4 +147,4 @@ export default {
 };
 </script>
 
-<style scoped src="./assets/style/main.css"></style>
+<style src="./assets/style/main.css"></style>
