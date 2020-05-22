@@ -1,5 +1,5 @@
-// const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
-//   .BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
@@ -21,7 +21,7 @@ module.exports = {
           }
         })
       ]
-    }
-    // plugins: [new BundleAnalyzerPlugin()]
+    },
+    plugins: [new BundleAnalyzerPlugin()]
   }
 };

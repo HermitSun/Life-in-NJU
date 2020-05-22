@@ -14,25 +14,6 @@ header {
     backdrop-filter: blur(20px);
 }
 
-/* 不使用绝对路径而使用相对路径，避免部署在非根目录时出现的问题 */
-@font-face {
-    font-family: "iconfont";
-    src: url("../font/iconfont.eot");
-    src: url("../font/iconfont.eot?#iefix") format("embedded-opentype"),
-    url("../font/iconfont.woff") format("woff"),
-    url("../font/iconfont.ttf") format("truetype"),
-    url("../font/iconfont.svg#iconfont") format("svg");
-}
-
-.iconfont {
-    font-family: "iconfont" !important;
-    font-size: 16px;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke-width: 0.2px;
-    -moz-osx-font-smoothing: grayscale;
-}
-
 #web_bg {
     position: absolute;
     top: 0;
@@ -166,4 +147,54 @@ header {
     .v-expansion-panel.panels:hover {
         background-color: rgba(255, 255, 255, 1) !important;
     }
+}
+
+/* 字体 */
+/* 不使用绝对路径而使用相对路径，避免部署在非根目录时出现的问题 */
+@font-face {
+    font-family: "iconfont";
+    src: url("../font/iconfont.woff2") format("woff2"),
+    url("../font/iconfont.woff") format("woff"),
+    url("../font/iconfont.ttf") format("truetype");
+}
+
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+    font-family: "Material Design Icons";
+    src: url("../font/mdi.woff2") format("woff2"),
+    url("../font/mdi.woff") format("woff"),
+    url("../font/mdi.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+.mdi:before,
+.mdi-set {
+    display: inline-block;
+    font: normal normal normal 24px/1 "Material Design Icons";
+    font-size: inherit;
+    text-rendering: auto;
+    line-height: inherit;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.mdi-github::before {
+    content: "\F02A4";
+}
+
+.mdi-open-in-new::before {
+    content: "\F03CC";
+}
+
+.mdi-chevron-down::before {
+    content: "\F0140";
 }

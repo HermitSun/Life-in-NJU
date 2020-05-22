@@ -84,7 +84,6 @@ export default {
     // apply to html
     document.head.appendChild(share);
     document.head.appendChild(copy);
-    this.isMenuActive = true;
   },
   methods: {
     // 打开新页面
