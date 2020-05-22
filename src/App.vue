@@ -1,7 +1,12 @@
 <template>
   <v-app style="background: rgba(0,0,0,0);">
     <!--背景图片-->
-    <div id="web_bg" :style="'background-image: url(' + imgUrl + ');'"></div>
+    <!--先展示占位的模糊图片-->
+    <div
+      class="web_bg"
+      :style="`background-image: url(${placeholderUrl});`"
+    ></div>
+    <div class="web_bg" :style="`background-image: url(${imgUrl});`"></div>
     <!--顶部标题栏-->
     <v-app-bar app color="rgba(0,0,0,.2)" dark flat fixed>
       Life In NJU - Lite
@@ -51,8 +56,12 @@
     <!--翻页-->
     <v-footer absolute dark style="background-color: rgba(0, 0, 0, 0.6);">
       <v-row justify="space-around">
-        <v-icon @click="--currentPage">mdi-chevron-left</v-icon>
-        <v-icon @click="++currentPage">mdi-chevron-right</v-icon>
+        <v-icon @click="switchPage(currentPage - 1)">
+          mdi-chevron-left
+        </v-icon>
+        <v-icon @click="switchPage(currentPage + 1)">
+          mdi-chevron-right
+        </v-icon>
       </v-row>
     </v-footer>
   </v-app>
@@ -60,8 +69,9 @@
 
 <script>
 const dataUrl = "https://image.idealclover.cn/projects/Life-in-NJU/";
-const imgUrl =
-  dataUrl + "background/bg" + Math.floor(Math.random() * 10) + ".jpg";
+const imgIndex = Math.floor(Math.random() * 10);
+const placeholderUrl = require(`@/assets/image/bg${imgIndex}.webp`);
+const imgUrl = dataUrl + `background/bg${imgIndex}.jpg`;
 
 let nativeShare;
 
@@ -73,14 +83,16 @@ export default {
   },
   data() {
     return {
-      dataUrl: dataUrl,
-      imgUrl: imgUrl,
-      showSnackbar: false,
-      snackText: "",
-
+      // 背景图
+      placeholderUrl,
+      imgUrl,
+      // 切换页面
       currentPage: 0,
+      // 分享
       isShareValid: false,
-      isCopyValid: false
+      isCopyValid: false,
+      showSnackbar: false,
+      snackText: ""
     };
   },
   mounted() {
@@ -92,6 +104,10 @@ export default {
       let tab = window.open(link);
       tab.opener = null;
       tab.location = link;
+    },
+    switchPage(page) {
+      const totalPage = 2;
+      this.currentPage = (page + totalPage) % totalPage;
     },
     // 分享
     share() {

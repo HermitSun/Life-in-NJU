@@ -10,7 +10,7 @@ header {
     backdrop-filter: blur(20px);
 }
 
-#web_bg {
+.web_bg {
     position: absolute;
     top: 0;
     left: 0;
