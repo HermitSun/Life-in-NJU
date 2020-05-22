@@ -62,10 +62,6 @@ header {
     box-shadow: rgba(0, 0, 0, 0.2) 0 2px 15px;
 }
 
-/*.v-input__slot:focus {
-	box-shadow: rgba(0,0,0,.2) 0 2px 20px;
-}*/
-
 /* 折叠面板 */
 .v-expansion-panels {
     -webkit-backdrop-filter: blur(3px);
@@ -97,12 +93,6 @@ header {
     background-color: white !important;
 }
 
-.ma-0.flex {
-    /* overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis; */
-}
-
 .text-center.white--text.col.col-12 {
     font-size: small;
     -webkit-backdrop-filter: blur(20px);
@@ -129,17 +119,7 @@ header {
         box-shadow: rgba(0, 0, 0, 0.1) 0 2px 15px;
     }
 
-    /*.v-input__slot:focus {
-          background-color: rgba(255,255,255,.9) !important;
-          box-shadow: rgba(0,0,0,.1) 0 2px 15px;
-      }
-      .v-expansion-panel::before {
-          -webkit-box-shadow: transparent 0 0 0 !important;
-          box-shadow: transparent 0 0 0 !important;
-      }*/
     .v-expansion-panel.panels.v-expansion-panel--active.v-item--active {
-        /* transition-delay: 0.25s;
-        background-color: rgba(255, 255, 255, 0.5) !important; */
         -webkit-transition: none;
         transition: none;
     }
@@ -197,4 +177,12 @@ header {
 
 .mdi-chevron-down::before {
     content: "\F0140";
+}
+
+.mdi-chevron-left::before {
+    content: "\F0141";
+}
+
+.mdi-chevron-right::before {
+    content: "\F0142";
 }

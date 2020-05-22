@@ -22,8 +22,23 @@
     </v-app-bar>
     <v-content class="mt-12 pa-0">
       <v-container class="fill-height" fluid>
-        <SearchBar />
-        <Menu v-if="isMenuActive" />
+        <v-row justify="center" align="center">
+          <v-carousel
+            v-model="currentPage"
+            delimiter-icon="mdi-minus"
+            height="100%"
+            hide-delimiters
+            :show-arrows="false"
+            light
+          >
+            <v-carousel-item>
+              <SearchBar />
+            </v-carousel-item>
+            <v-carousel-item>
+              <Menu />
+            </v-carousel-item>
+          </v-carousel>
+        </v-row>
       </v-container>
       <!--分享提示-->
       <v-snackbar v-model="showSnackbar">
@@ -33,6 +48,13 @@
         </v-btn>
       </v-snackbar>
     </v-content>
+    <!--翻页-->
+    <v-footer absolute dark style="background-color: rgba(0, 0, 0, 0.6);">
+      <v-row justify="space-around">
+        <v-icon @click="--currentPage">mdi-chevron-left</v-icon>
+        <v-icon @click="++currentPage">mdi-chevron-right</v-icon>
+      </v-row>
+    </v-footer>
   </v-app>
 </template>
 
@@ -56,34 +78,13 @@ export default {
       showSnackbar: false,
       snackText: "",
 
-      isMenuActive: false,
+      currentPage: 0,
       isShareValid: false,
       isCopyValid: false
     };
   },
   mounted() {
-    // async load
-    const share = document.createElement("script");
-    share.src =
-      "https://cdn.jsdelivr.net/npm/nativeshare@2.1.3/NativeShare.min.js";
-    share.async = true;
-    const copy = document.createElement("script");
-    copy.src =
-      "https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js";
-    copy.async = true;
-    share.addEventListener("load", () => {
-      // eslint-disable-next-line no-undef
-      nativeShare = new NativeShare();
-      this.isShareValid = true;
-    });
-    copy.addEventListener("load", () => {
-      // eslint-disable-next-line no-undef
-      new ClipboardJS(".shareLink");
-      this.isCopyValid = true;
-    });
-    // apply to html
-    document.head.appendChild(share);
-    document.head.appendChild(copy);
+    this.loadShare();
   },
   methods: {
     // 打开新页面
@@ -117,6 +118,30 @@ export default {
     showToast(text) {
       this.snackText = text;
       this.showSnackbar = true;
+    },
+    loadShare() {
+      // async load
+      const share = document.createElement("script");
+      share.src =
+        "https://cdn.jsdelivr.net/npm/nativeshare@2.1.3/NativeShare.min.js";
+      share.async = true;
+      const copy = document.createElement("script");
+      copy.src =
+        "https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js";
+      copy.async = true;
+      share.addEventListener("load", () => {
+        // eslint-disable-next-line no-undef
+        nativeShare = new NativeShare();
+        this.isShareValid = true;
+      });
+      copy.addEventListener("load", () => {
+        // eslint-disable-next-line no-undef
+        new ClipboardJS(".shareLink");
+        this.isCopyValid = true;
+      });
+      // apply to html
+      document.head.appendChild(share);
+      document.head.appendChild(copy);
     }
   }
 };
