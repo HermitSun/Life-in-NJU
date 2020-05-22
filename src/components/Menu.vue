@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="center" align="center" class="ml-4 mr-4">
+  <v-row justify="center" align="center" class="ml-4 mr-4 mb-12">
     <v-expansion-panels multiple>
       <v-expansion-panel v-for="(category, i) in data" :key="i" class="panels">
         <v-expansion-panel-header>
